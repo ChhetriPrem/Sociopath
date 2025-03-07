@@ -23,7 +23,7 @@ mongoose
 
 app.use(
   cors({
-    origin: "https://frontend-sastagram.vercel.app",
+    origin:[ "https://frontend-sastagram.vercel.app","https://sociopath-git-main-chhetriprems-projects.vercel.app/"]
     credentials: true, // Allow cookies
     allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow token header
   })
