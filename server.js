@@ -42,9 +42,9 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "/page/user.html"));
 });
 
-app.get("/auth/check", authMiddleware, (req, res) => {
-  return res.json({ authenticated: true, user: req.user });
-});
+// app.get("/auth/check", authMiddleware, (req, res) => {
+//   return res.json({ authenticated: true, user: req.user });
+// });
 
 app.listen(3000, () => {
   console.log("Server initialized successfully");
