@@ -28,6 +28,7 @@ app.use(
       "https://sociopath-git-main-chhetriprems-projects.vercel.app",
       "https://frontend-sastagram-6f7ar7z2k-chhetriprems-projects.vercel.app",
     ],
+      methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // Allow cookies
     allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow token header
   })
