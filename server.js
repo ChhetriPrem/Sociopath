@@ -26,12 +26,13 @@ app.use(
     origin: [
       "https://frontend-sastagram.vercel.app",
       "https://sociopath-git-main-chhetriprems-projects.vercel.app",
+      "https://frontend-sastagram-6f7ar7z2k-chhetriprems-projects.vercel.app",
     ],
     credentials: true, // Allow cookies
     allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow token header
   })
-  
 );
+
 
 
 app.use("/auth", authRouter);
