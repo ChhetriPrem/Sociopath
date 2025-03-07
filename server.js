@@ -35,6 +35,7 @@ app.use(
 
 
 
+
 app.use("/auth", authRouter);
 app.use("/user", postRoutes);
 app.use("/user", uploadRoute);
