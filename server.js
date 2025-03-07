@@ -45,6 +45,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/auth/check", authMiddleware, (req, res) => {
+  console.log(req.user)
   if (!req.user) {
     return res.status(401).json({ authenticated: false, message: "User not authenticated" });
   }
