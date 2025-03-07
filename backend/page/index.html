@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload with Profile</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f3f4f6;
+      }
+      .container {
+        width: 350px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+      .profile img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-right: 10px;
+        border: 2px solid #3498db;
+      }
+      .profile h3 {
+        font-size: 16px;
+        color: #333;
+      }
+      input,
+      button {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+      button {
+        background: #3498db;
+        color: white;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      button:hover {
+        background: #2980b9;
+      }
+      .preview img {
+        width: 100%;
+        margin-top: 10px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <!-- User Profile -->
+      <div class="profile">
+        <img id="profilePic" src="" alt="Profile Picture" />
+        <h3 id="username">Loading...</h3>
+      </div>
+
+      <!-- Image Upload Form -->
+      <h2>Create a Post</h2>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <input type="text" id="title" placeholder="Enter title" required />
+        <input type="file" name="image" id="imageInput" required />
+        <button type="submit">Upload</button>
+      </form>
+      <p id="status"></p>
+
+      <!-- Uploaded Image Preview -->
+      <div class="preview">
+        <img id="preview" src="" alt="Uploaded Image" />
+      </div>
+    </div>
+
+    <script>
+      async function fetchUserProfile() {
+        try {
+          const response = await fetch("http://localhost:3000/auth/user", {
+            method: "GET",
+            credentials: "include",
+          });
+
+          const data = await response.json();
+
+          if (!response.ok)
+            throw new Error(data.message || "Failed to fetch profile");
+
+          document.getElementById("profilePic").src =
+            data.img || "https://via.placeholder.com/50";
+          document.getElementById("username").textContent = data.username;
+        } catch (error) {
+          console.error(error);
+          document.getElementById("username").textContent = "Guest User";
+        }
+      }
+
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const formData = new FormData();
+          const fileInput = document.getElementById("imageInput");
+          const titleInput = document.getElementById("title").value;
+
+          formData.append("image", fileInput.files[0]);
+
+          document.getElementById("status").innerText = "Uploading...";
+
+          try {
+            // Upload image first
+            const response = await fetch("http://localhost:3000/user/upload", {
+              method: "POST",
+              body: formData,
+            });
+
+            const data = await response.json();
+            if (!data.imageUrl) throw new Error("Upload failed");
+
+            // Show preview
+            document.getElementById("preview").src = data.imageUrl;
+            document.getElementById("preview").style.display = "block";
+            document.getElementById("status").innerText =
+              "Image uploaded! Creating post...";
+            console.log("imageUrl: ", data.imageUrl);
+            // Send post data to database
+            const postResponse = await fetch(
+              "http://localhost:3000/user/createPost",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                credentials: "include",
+                body: JSON.stringify({
+                  title: titleInput,
+                  imageUrl: data.imageUrl,
+                }),
+              }
+            );
+
+            const postData = await postResponse.json();
+            console.log(postData);
+            if (!postResponse.ok)
+              throw new Error(postData.message || "Failed to create post");
+
+            document.getElementById("status").innerText =
+              "Post created successfully!";
+          } catch (error) {
+            document.getElementById("status").innerText =
+              "Error: " + error.message;
+          }
+        });
+
+      // Fetch user details on page load
+      window.onload = fetchUserProfile;
+    </script>
+  </body>
+</html>
