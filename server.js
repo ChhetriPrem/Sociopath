@@ -23,7 +23,7 @@ mongoose
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: "https://frontend-sastagram.vercel.app",
     credentials: true, // Allow cookies
     allowedHeaders: ["Content-Type", "Authorization"], // ✅ Allow token header
   })
