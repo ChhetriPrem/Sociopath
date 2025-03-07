@@ -1,0 +1,87 @@
+/* Auth Container */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+}
+
+/* Auth Box */
+.auth-box {
+  background: white;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+  width: 350px;
+  text-align: center;
+}
+
+/* Title */
+.auth-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form */
+.auth-form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input Fields */
+.auth-input {
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.auth-input:focus {
+  border-color: #764ba2;
+  outline: none;
+  box-shadow: 0px 0px 10px rgba(118, 75, 162, 0.3);
+}
+
+/* Submit Button */
+.auth-button {
+  padding: 12px;
+  background: linear-gradient(90deg, #667eea, #764ba2);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.auth-button:hover {
+  background: linear-gradient(90deg, #5a67d8, #6b46c1);
+}
+
+/* Toggle Text */
+.auth-toggle {
+  margin-top: 15px;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Toggle Button */
+.toggle-button {
+  background: none;
+  border: none;
+  color: #764ba2;
+  font-weight: bold;
+  cursor: pointer;
+  margin-left: 5px;
+  transition: 0.3s;
+}
+
+.toggle-button:hover {
+  color: #5a67d8;
+}
