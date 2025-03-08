@@ -78,7 +78,7 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-app.get("/check", authMiddleware, (req, res) => {
+router.get("/check", authMiddleware, (req, res) => {
   console.log(req.user)
   if (!req.user) {
     return res.status(401).json({ authenticated: false, message: "User not authenticated" });
