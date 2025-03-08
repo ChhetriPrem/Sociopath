@@ -25,7 +25,7 @@ router.post("/signup", async (req, res) => {
       username,
       email,
       password: hashedPassword,
-      img,
+      img: img || "https://previews.123rf.com/images/imagerymajestic/imagerymajestic0811/imagerymajestic081100638/3825934-cool-guy-showing-hand-gesture-against-white-background.jpg",
       bio,
       location,
     });
